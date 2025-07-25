@@ -1,0 +1,20 @@
+  .inverted-corners::before,
+  .inverted-corners::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    width: 32px;
+    height: 32px;
+    background-color: white;
+    z-index: 10;
+  }
+
+  .inverted-corners::before {
+    left: 0;
+    border-top-left-radius: 32px;
+  }
+
+  .inverted-corners::after {
+    right: 0;
+    border-top-right-radius: 32px;
+  }

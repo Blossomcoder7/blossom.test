@@ -1,0 +1,35 @@
+html,
+body,
+#root {
+  width: 100%;
+  height: auto;
+  overflow: auto;
+  padding: 0;
+  margin: 0;
+  scrollbar-width: none !important;
+}
+
+body,
+main {
+  overflow: auto;
+  scrollbar-width: none !important;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+@media (max-width: 72rem) {
+  html,
+  body,
+  #root {
+    width: 100%;
+    height: auto;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch; /* For smooth scrolling on iOS */
+  }
+}
