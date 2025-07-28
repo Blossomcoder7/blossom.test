@@ -37,6 +37,7 @@ const HomeLoading = ({ children }: { children: ReactNode }) => {
       ) {
         return;
       } else {
+        console.log(isAnimating);
         // ScrollTrigger.refresh();
         // const tl = gsap.timeline({
         //   scrollTrigger: {
@@ -186,7 +187,7 @@ const HomeLoading = ({ children }: { children: ReactNode }) => {
                 <p className="text-[clamp(40px,3vw,120px)] indent-2 leading-none text-left whitespace-nowrap text-icm-black font-black ">
                   Blossom Coder is a{" "}
                 </p>
-                <p  className="text-[clamp(100px,9vw,180px)] leading-none text-left  text-icm-primary font-black uppercase ">
+                <p className="text-[clamp(100px,9vw,180px)] leading-none text-left  text-icm-primary font-black uppercase ">
                   Creative{" "}
                 </p>
                 <p className="text-[clamp(40px,3vw,120px)] indent-2 leading-none text-left whitespace-nowrap text-icm-black font-black ">
