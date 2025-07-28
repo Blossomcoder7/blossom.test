@@ -29,7 +29,7 @@ const HomeLoading = ({ children }: { children: ReactNode }) => {
   useGSAP(
     () => {
       if (
-        !containerEl ||
+        !containerEl.current ||
         !overlayEl?.current ||
         !bannerEl?.current ||
         !leftEl?.current ||
@@ -37,67 +37,106 @@ const HomeLoading = ({ children }: { children: ReactNode }) => {
       ) {
         return;
       } else {
-        ScrollTrigger.refresh();
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: containerEl?.current,
-            start: "top top",
-            end: "bottom top",
-            pin: containerEl?.current,
-            pinSpacing: true,
-            scrub: 3.5,
-            markers: false,
-            onUpdate: (self) => {
-              const prog = self?.progress;
-              if (prog >= 0.99) {
-                setLoaded(true);
-              } else {
-                setLoaded(false);
-              }
-            },
-            onEnter: () => {
-              gsap.set(containerEl?.current, { zIndex: 9999 });
-              setLoaded(false);
-              setIsAnimating(true);
-            },
-            onLeave: () => {
-              gsap.set(containerEl?.current, { zIndex: 9 });
+        // ScrollTrigger.refresh();
+        // const tl = gsap.timeline({
+        //   scrollTrigger: {
+        //     trigger: containerEl?.current,
+        //     start: "top top",
+        //     end: "bottom top",
+        //     pin: containerEl?.current,
+        //     pinSpacing: true,
+        //     scrub: 3.5,
+        //     markers: true,
+        //     onUpdate: (self) => {
+        //       const prog = self?.progress;
+        //       if (prog >= 0.99) {
+        //         setLoaded(true);
+        //       } else {
+        //         setLoaded(false);
+        //       }
+        //     },
+        //     onEnter: () => {
+        //       gsap.set(containerEl?.current, { zIndex: 9999 });
+        //       setLoaded(false);
+        //       setIsAnimating(true);
+        //     },
+        //     onLeave: () => {
+        //       gsap.set(containerEl?.current, { zIndex: 9 });
+        //       setLoaded(true);
+        //       setIsAnimating(false);
+        //     },
+        //     onEnterBack: () => {
+        //       gsap.set(containerEl?.current, { zIndex: 9999 });
+        //       setLoaded(false);
+        //       setIsAnimating(true);
+        //     },
+        //     onLeaveBack: () => {
+        //       gsap.set(containerEl?.current, { zIndex: 9 });
+        //       setLoaded(true);
+        //       setIsAnimating(false);
+        //     },
+        //   },
+        // });
+        // tl?.to(leftEl?.current, {
+        //   left: "-100%",
+        //   duration: 1,
+        // })
+        //   ?.to(
+        //     rightEl?.current,
+        //     {
+        //       right: "-100%",
+        //       duration: 1,
+        //     },
+        //     "<"
+        //   )
+        //   ?.to(containerEl?.current, {
+        //     zIndex: 9,
+        //     duration: 1,
+        //   });
+
+        ScrollTrigger.create({
+          trigger: containerEl?.current,
+          start: "top top",
+          end: "bottom top",
+          pin: containerEl?.current,
+          scrub: true,
+          // markers: true,
+          onUpdate: (self) => {
+            const progress = self.progress;
+            gsap.to(leftEl?.current, {
+              left: `${-100 * progress}%`,
+            });
+            gsap.to(rightEl?.current, {
+              right: `${-100 * progress}%`,
+            });
+            if (progress >= 0.99) {
               setLoaded(true);
-              setIsAnimating(false);
-            },
-            onEnterBack: () => {
-              gsap.set(containerEl?.current, { zIndex: 9999 });
+            } else {
               setLoaded(false);
-              setIsAnimating(true);
-            },
-            onLeaveBack: () => {
-              gsap.set(containerEl?.current, { zIndex: 9 });
-              setLoaded(true);
-              setIsAnimating(false);
-            },
+            }
+          },
+          onEnter: () => {
+            gsap.set(containerEl?.current, { zIndex: 9999 });
+            setLoaded(false);
+            setIsAnimating(true);
+          },
+          onLeave: () => {
+            gsap.set(containerEl?.current, { zIndex: 9 });
+            setLoaded(true);
+            setIsAnimating(false);
+          },
+          onEnterBack: () => {
+            // gsap.set(containerEl?.current, { zIndex: 9999 });
+            setLoaded(false);
+            setIsAnimating(true);
+          },
+          onLeaveBack: () => {
+            gsap.set(containerEl?.current, { zIndex: 9 });
+            setLoaded(true);
+            setIsAnimating(false);
           },
         });
-
-        tl?.to(
-          leftEl?.current,
-          {
-            left: "-100%",
-          },
-          "<"
-        )
-          ?.to(
-            rightEl?.current,
-            {
-              right: "-100%",
-            },
-            "<"
-          )
-          ?.to(containerEl?.current, {
-            zIndex: 9,
-            // display: "none",
-          });
       }
-      console.log(isAnimating);
     },
     {
       scope: containerEl,
@@ -147,7 +186,7 @@ const HomeLoading = ({ children }: { children: ReactNode }) => {
                 <p className="text-[clamp(40px,3vw,120px)] indent-2 leading-none text-left whitespace-nowrap text-icm-black font-black ">
                   Blossom Coder is a{" "}
                 </p>
-                <p className="text-[clamp(100px,9vw,180px)] leading-none text-left  text-icm-primary font-black uppercase ">
+                <p  className="text-[clamp(100px,9vw,180px)] leading-none text-left  text-icm-primary font-black uppercase ">
                   Creative{" "}
                 </p>
                 <p className="text-[clamp(40px,3vw,120px)] indent-2 leading-none text-left whitespace-nowrap text-icm-black font-black ">
